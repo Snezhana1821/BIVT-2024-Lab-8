@@ -13,16 +13,11 @@ namespace Lab_8
         public Purple_2 (string input) : base(input) { }
         private string FormatOnWidth(string line)
         {
-            if (line.Length == 50) return line;
             int k = line.Count(x => x == ' ');
             if (k == 0) return line;
             int toEO = (50 - line.Length) / k;
             int extra = (50 - line.Length) % k;
-            string add = "";
-            for (int i =0;i<toEO;i++)
-            {
-                add+= " ";
-            }
+            string add = new string (' ', toEO);
             StringBuilder ans = new StringBuilder();
             for (int i = 0; i<line.Length;i++)
             {
@@ -43,21 +38,19 @@ namespace Lab_8
         {
             if (_input == null) return;
             _output= new string[0];
-            var remText = _input.Trim();
+            string remText = _input;
             while (remText.Length > 50)
             {
-                var a = remText.Substring(0,51);
-                var lastSpace = a.LastIndexOf(' ');
-                if (lastSpace < 0)
+                int a = 50;
+                while (a >=0 && remText[a] != ' ') a--;
+                if (a == -1)
                 {
                     _output = _output.Append(remText).ToArray();
-                    remText = string.Empty;
                     break;
                 }
-                else{
-                    _output = _output.Append(FormatOnWidth(a.Substring(0,lastSpace))).ToArray();
-                    remText = remText.Substring(lastSpace + 1).TrimStart();
-                }
+                _output = _output.Append(FormatOnWidth(remText.Substring(0,a))).ToArray();
+                remText = remText.Substring(a + 1);
+                
             }
             if (remText.Length > 0)
             {
