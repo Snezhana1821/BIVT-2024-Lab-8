@@ -39,28 +39,31 @@ namespace Lab_8
             if (_input == null) return;
             _output= new string[0];
             string remText = _input;
-            while (remText.Length > 50)
+            while (remText.Length > 0)
             {
-                int a = 50;
-                while (a >=0 && remText[a] != ' ') a--;
-                if (a == -1)
+                int a = Math.Min(50, remText.Length);
+                if (a == remText.Length)
                 {
-                    _output = _output.Append(remText).ToArray();
+                    _output = _output.Append(FormatOnWidth(remText)).ToArray();
                     break;
                 }
+                while (a >=0 && remText[a] != ' ') a--;
+                if (a == -1) a =50;
                 _output = _output.Append(FormatOnWidth(remText.Substring(0,a))).ToArray();
                 remText = remText.Substring(a + 1);
                 
             }
-            if (remText.Length > 0)
-            {
-                _output = _output.Append(FormatOnWidth(remText)).ToArray();
-            }
         }
         public override string ToString()
         {
-            if (_output == null) return null;
-            return string.Join(Environment.NewLine,_output);
+            if (Output == null)  return null;
+            string answ = "";
+            for(int i = 0; i<Output.Length-1; i++)
+            {
+                answ += Output[i]+"\r\n";
+            }
+            answ += Output[Output.Length-1];
+            return answ;
         }
     }
 }
