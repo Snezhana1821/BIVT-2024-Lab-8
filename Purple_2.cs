@@ -9,7 +9,7 @@ namespace Lab_8
     public class Purple_2 : Purple
     {
         private string[] _output;
-        public string[] Output => _output;
+        public string[] Output => _output?.ToArray();
         public Purple_2 (string input) : base(input) { }
         private string FormatOnWidth(string line)
         {
