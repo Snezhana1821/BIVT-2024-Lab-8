@@ -9,7 +9,16 @@ namespace Lab_8
     public class Purple_2 : Purple
     {
         private string[] _output;
-        public string[] Output => _output?.ToArray();
+        public string[] Output
+        {
+            get
+            {
+                if (_output == null) return null;
+                    string[] copy = new string[_output.Length];
+                    Array.Copy(_output,copy,_output.Length);
+                    return copy;
+            }
+        }
         public Purple_2 (string input) : base(input) { }
         private string FormatOnWidth(string line)
         {
@@ -56,13 +65,13 @@ namespace Lab_8
         }
         public override string ToString()
         {
-            if (Output == null)  return null;
+            if (_output == null)  return null;
             string answ = "";
-            for(int i = 0; i<Output.Length-1; i++)
+            for(int i = 0; i<_output.Length-1; i++)
             {
-                answ += Output[i]+"\r\n";
+                answ += _output[i]+"\r\n";
             }
-            answ += Output[Output.Length-1];
+            answ += _output[_output.Length-1];
             return answ;
         }
     }
